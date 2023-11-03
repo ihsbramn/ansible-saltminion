@@ -11,7 +11,7 @@
 
     - name: Add SaltStack APT repository
       apt_repository:
-        repo: deb http://repo.saltstack.com/py3/ubuntu/20.04/amd64/latest focal main
+        repo: 'deb http://repo.saltstack.com/py3/ubuntu/20.04/amd64/latest focal main'
         state: present
 
     - name: Update apt cache
