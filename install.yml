@@ -1,0 +1,30 @@
+---
+- name: Install Salt Minion
+  hosts: web_servers
+  become: yes  # Use sudo to become root
+
+  tasks:
+    - name: Add SaltStack APT repository key
+      apt_key:
+        url: https://repo.saltstack.com/py3/ubuntu/20.04/amd64/latest/SALTSTACK-GPG-KEY.pub
+        state: present
+
+    - name: Add SaltStack APT repository
+      apt_repository:
+        repo: deb http://repo.saltstack.com/py3/ubuntu/20.04/amd64/latest focal main
+        state: present
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Salt Minion
+      apt:
+        name: salt-minion
+        state: present
+
+    - name: Start and enable Salt Minion service
+      service:
+        name: salt-minion
+        state: started
+        enabled: yes
